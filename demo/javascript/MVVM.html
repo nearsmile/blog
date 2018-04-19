@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>MVVM</title>
+</head>
+<body>
+<script>
+  var obj = {};
+  var name = 'test';
+
+  Object.defineProperty(obj, 'name', {
+    get: function () {
+      console.log('get');
+      return name;
+    },
+
+    set: function (val) {
+      console.log('set');
+      name = val;
+    }
+  });
+
+  console.log(obj.name);
+  obj.name = 'change';
+
+  /* ******** Array ******** */
+  var arr1 = [1, 2, 3];
+  var arr2 = [100, 200, 300];
+
+  arr1.__proto__ = {
+    push: function (val) {
+      console.log('push:', val);
+      return Array.prototype.push.call(arr1, val);
+    },
+
+    pop: function () {
+      console.log('pop');
+      return Array.prototype.pop.call(arr1);
+    }
+  }
+
+  arr1.push(4); // 可监听到
+  arr1.pop();
+
+  arr2.push(400); // 不受影响
+  arr2.pop();
+
+</script>
+</body>
+</html>
